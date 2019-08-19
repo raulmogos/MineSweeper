@@ -6,16 +6,9 @@ from queue import Queue
 
 class Game:
     def __init__(self):
-        self.__mainBoard = Board(16, 16)
+        self.__mainBoard = Board(20, 20, 90)
         self.__mainBoard.fillBoardWithBombs()
         self.__mainBoard.fillBoardNumbers()
-        self.__coveredBoard = Board(16, 16)
-        self.__setUpCovered()
-
-    def __setUpCovered(self):
-        for i in range(10):
-            for j in range(10):
-                self.__coveredBoard.setSquare(i, j, COVERED)
 
     def bfsOnBoard(self, row, col):
         '''

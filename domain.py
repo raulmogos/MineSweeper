@@ -5,30 +5,28 @@ from constants import *
 
 
 class Square:
-    def __init__(self, row, col, value, is_covered=False):
+    def __init__(self, row, col):
         self.__row = row
         self.__col = col
-        self.__value = value
-        self.__is_covered = is_covered
     @property
     def get_row(self):
         return self.__row
     @property
     def get_col(self):
         return self.__col
-    @property
-    def get_value(self):
-        return self.__value
-    @property
-    def is_covered(self):
-        return self.__is_covered
-    def __add__(self, other):
-        # returns a tuple
-        return (self.__row + other.__row, self.__col + other.__col)
-    def set_value(self, new_value):
-        self.__value = new_value
-    def set_covered(self):
-        self.__is_covered = True
+    # @property
+    # def get_value(self):
+    #     return self.__value
+    # @property
+    # def is_covered(self):
+    #     return self.__is_covered
+    # def __add__(self, other):
+    #     # returns a tuple
+    #     return (self.__row + other.__row, self.__col + other.__col)
+    # def set_value(self, new_value):
+    #     self.__value = new_value
+    # def set_covered(self):
+    #     self.__is_covered = True
 
 class Board:
 
@@ -78,26 +76,31 @@ class Board:
         # we put inn each square the number of bombs in its area
         for row in range(0, self.__max_size_rows):
             for col in range(0, self.__max_size_cols):
-                if self.__board[row][col] != BOMB:
+                if self.__board[row][col] == 0:
                     self.__board[row][col] = self.__numberOfBombsAround(row, col)
 
     def __isRowInBoardRange(self, row):
-        return row > 0 and row < self.__max_size_rows
+        return row >= 0 and row < self.__max_size_rows
 
     def __isColumnInBoardRange(self, col):
-        return col > 0 and col < self.__max_size_cols
+        return col >= 0 and col < self.__max_size_cols
 
-    def __numberOfBombsAround(self, row, col):
-        numberOfBombs = 0
-        moves = [[0, 1], [1, 0], [1, 1], [-1, -1],
-                 [1, -1], [-1, 1], [0, -1], [-1, 0]]
+    def getListOfNeighbours(self, row, col):
+        list_of_neighbours = []
+        moves = [[0, 1], [1, 0], [1, 1], [-1, -1], [1, -1], [-1, 1], [0, -1], [-1, 0]]
         for move in moves:
             neighbour_square_row = row + move[0]
             neighbour_square_col = col + move[1]
             if self.__isColumnInBoardRange(neighbour_square_col)\
-                and self.__isRowInBoardRange(neighbour_square_row)\
-                    and self.__board[neighbour_square_row][neighbour_square_col] == BOMB:
-                        numberOfBombs += 1
+                    and self.__isRowInBoardRange(neighbour_square_row):
+                        list_of_neighbours.append(Square(neighbour_square_row, neighbour_square_col))
+        return list_of_neighbours
+
+    def __numberOfBombsAround(self, row, col):
+        numberOfBombs = 0
+        for sq in self.getListOfNeighbours(row, col):
+            if self.__board[sq.get_row][sq.get_col] == BOMB:
+                numberOfBombs += 1
         return numberOfBombs
 
     def getCopyBoard(self):

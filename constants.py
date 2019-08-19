@@ -21,15 +21,18 @@ BUTTON_SIZE = 40
 
 WINDOW_NAME = 'minesweeper'
 
+BUTTON_COLOR_COVERED = 'background-color: grey'
+BUTTON_COLOR_UNCOVERED = 'background-color: #cccccc'
+
 ICONS = {
-    BOMB: 'icons/bomb-3.png',
+    BOMB: 'icons/bomb-2.jpg',
     0: '',
-    1: 'icons/one.png',
-    2: 'icons/two.png',
+    1: 'icons/one-4.png',
+    2: 'icons/two-4.png',
     3: 'icons/three.jpg',
     4: 'icons/four.png',
-    5: '',
-    6: '',
-    7: '',
-    8: '',
+    5: 'icons/five.png',
+    6: 'icons/six.png',
+    7: 'icons/seven.jpg',
+    8: 'icons/eight.png',
 }
