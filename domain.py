@@ -14,6 +14,8 @@ class Square:
     @property
     def get_col(self):
         return self.__col
+    def __eq__(self, other):
+        return self.__row == other.__row and self.__col == other.__col
     # @property
     # def get_value(self):
     #     return self.__value

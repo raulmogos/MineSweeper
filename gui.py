@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QIcon
-
+import time
 from gameService import Game
 
 from constants import BUTTON_SIZE, ICONS, BOMB, WINDOW_NAME, BUTTON_COLOR_UNCOVERED, BUTTON_COLOR_COVERED
@@ -26,6 +26,13 @@ class GUI(QWidget):
         button.setIcon(QIcon(ICONS[value]))
         button.setStyleSheet(BUTTON_COLOR_UNCOVERED)
 
+    def __setButtonUncoveredByIndex(self, row, col):
+        for button in self.__listButtons:
+            r, c = self.__whichButton(button)
+            if row == r and col == c:
+                self.__setButtonUncovered(button)
+                break
+
     def __createButtonNameConvention(self, row, col):
         return str(row) + '-' + str(col)
 
@@ -44,7 +51,6 @@ class GUI(QWidget):
         new_button.clicked.connect(self.__onClickButton)
         self.__listButtons.append(new_button)
         new_button.setStyleSheet(BUTTON_COLOR_COVERED)
-        self.__setButtonUncovered(new_button)
 
     def __setUp(self):
         self.setWindowTitle(WINDOW_NAME)
@@ -55,12 +61,28 @@ class GUI(QWidget):
                 self.__createNewButton(i, j)
 
     def __onClickButton(self):
+
+
+        for i in self.__service.getMainBoard():
+            print(i)
+
+
         sender = self.sender()
         print(sender.objectName())
         row, col = self.__whichButton(sender)
         print('value: ', self.__service.getMainBoard()[row][col])
-        # print(self.__listButtons)
-        # for i in self.__service.getMainBoard():
-        #     print(i)
-        # self.__setButtonUncovered(sender)
 
+        lst = self.__service.bfsOnBoard(row, col)
+
+        if lst == BOMB:
+            print('bomb')
+            self.__setButtonUncovered(sender)
+            return
+
+        for b in lst:
+            r = b.get_row
+            c = b.get_col
+            self.__setButtonUncoveredByIndex(r, c)
+
+        for i in self.__service.getMainBoard():
+            print(i)
