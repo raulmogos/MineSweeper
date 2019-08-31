@@ -8,6 +8,7 @@ class Square:
     def __init__(self, row, col):
         self.__row = row
         self.__col = col
+        self.__covered = True
     @property
     def get_row(self):
         return self.__row
@@ -16,19 +17,10 @@ class Square:
         return self.__col
     def __eq__(self, other):
         return self.__row == other.__row and self.__col == other.__col
-    # @property
-    # def get_value(self):
-    #     return self.__value
-    # @property
-    # def is_covered(self):
-    #     return self.__is_covered
-    # def __add__(self, other):
-    #     # returns a tuple
-    #     return (self.__row + other.__row, self.__col + other.__col)
-    # def set_value(self, new_value):
-    #     self.__value = new_value
-    # def set_covered(self):
-    #     self.__is_covered = True
+    def set_uncovered(self):
+        self.__covered = False
+    def isCovered(self):
+        return self.__covered
 
 class Board:
 

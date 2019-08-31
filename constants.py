@@ -24,8 +24,11 @@ WINDOW_NAME = 'minesweeper'
 BUTTON_COLOR_COVERED = 'background-color: grey'
 BUTTON_COLOR_UNCOVERED = 'background-color: #cccccc'
 
+FLAG = '-2'
+
 ICONS = {
     BOMB: 'icons/bomb-2.jpg',
+    FLAG: 'icons/flag.jpg',
     0: '',
     1: 'icons/one-4.png',
     2: 'icons/two-4.png',

@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QApplication
 
 from domain import *
 from gameService import *
-from consoleUi import *
 from gui import *
 
 
