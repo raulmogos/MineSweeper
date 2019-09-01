@@ -69,7 +69,6 @@ class GUI(QWidget):
             for j in range(self.__len_cols):
                 self.__createNewButton(i, j)
 
-
     def __onClickButton(self):
         sender = self.sender()
         print(sender.objectName())

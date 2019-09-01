@@ -4,7 +4,7 @@ from constants import BOMB
 from queue import Queue
 
 
-n = 20
+n = 15
 m = 20
 b = 30
 

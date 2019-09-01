@@ -1,6 +1,5 @@
-'''
-    MODULE FOR CONSTANTS
-'''
+# MODULE FOR CONSTANTS
+
 
 BOMB = -1
 

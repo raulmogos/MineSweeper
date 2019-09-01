@@ -25,9 +25,10 @@ class Square:
     def is_covered(self):
         return self.__covered
 
+
 class Board:
 
-    def __init__(self, rows=10, columns=10, no_bombs=25):
+    def __init__(self, rows=10, columns=10, no_bombs=15):
         '''
         decare a matrix 10x10
         initialized with 0's
@@ -51,7 +52,6 @@ class Board:
                 if self.__board[row][col] == 0:
                     return_list_empty_squares.append(Square(row, col))
         return return_list_empty_squares
-
 
     def fillBoardWithBombs(self):
         # we fill the board with random numbers
@@ -90,11 +90,11 @@ class Board:
         return list_of_neighbours
 
     def __numberOfBombsAround(self, row, col):
-        numberOfBombs = 0
+        number_of_bombs = 0
         for sq in self.getListOfNeighbours(row, col):
             if self.__board[sq.get_row][sq.get_col] == BOMB:
-                numberOfBombs += 1
-        return numberOfBombs
+                number_of_bombs += 1
+        return number_of_bombs
 
     def getCopyBoard(self):
         return self.__board[:]
@@ -107,17 +107,3 @@ class Board:
 
     def getNumberOfBombs(self):
         return self.__max_number_bombs
-
-# bd = Board()
-# bd.fillBoardWithBombs()
-# bd.fillBoardNumbers()
-#
-# t = texttable.Texttable()
-#
-# for i in bd.getCopyBoard():
-#     t.add_row(i)
-#
-# print(t.draw())
-#
-# for i in range(128):
-#     print(str(i), chr(i))
