@@ -1,25 +1,19 @@
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QWidget, QMessageBox
+from PyQt5.QtWidgets import QWidget, QMessageBox, QAction, qApp
 from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.Qt import Qt, QObject
-import time
-from gameService import Game
-
 from constants import *
 
 
 class GUI(QWidget):
     def __init__(self, service):
         QWidget.__init__(self)
-        self.EXIT_CODE_REBOOT = -12345678
         self.__len_rows = service.getNuberOfRows()
-        self.__len_cols = service.getNuberOfRows()
-        self.__matrixButtons = [
-            [0 for i in range(self.__len_cols)] for j in range(self.__len_rows)
-        ]
-        self.setMouseTracking(True)
+        self.__len_cols = service.getNumberOfCols()
+        self.__matrixButtons = [[0 for i in range(self.__len_cols)] for j in range(self.__len_rows)]
+        self.__visitedButtons = [[0 for i in range(self.__len_cols)] for j in range(self.__len_rows)]
         self.__service = service
         self.__setUp()
+        self.show()
 
     def __setButtonCovered(self, button):
         button.setStyleSheet(BUTTON_COLOR_COVERED)
@@ -36,7 +30,7 @@ class GUI(QWidget):
     def __setButtonUncovered(self, button):
         row, col = self.__whichButton(button)
         value = self.__service.getMainBoard()[row][col]
-        # print(value)
+        self.__visitedButtons[row][col] = 1
         button.setEnabled(False)
         icon = QIcon()
         icon.addPixmap(QPixmap(ICONS[value]), QIcon.Disabled)
@@ -81,18 +75,12 @@ class GUI(QWidget):
         print(sender.objectName())
         row, col = self.__whichButton(sender)
         print('value: ', self.__service.getMainBoard()[row][col])
-
         lst = self.__service.bfsOnBoard(row, col)
-
-        # if QtGui.qApp.mouseButtons() and QtCore.Qt.RightButton:
-        #     print(self.sender().toolTip())
-
         if lst == BOMB:
             print('bomb')
             self.__setButtonUncovered(sender)
-            buttonReply = QMessageBox.information(self, 'you have lost', 'you have lost', QMessageBox.Close | QMessageBox.Retry)
+            QMessageBox.information(self, 'you have lost', 'you have lost', QMessageBox.Close | QMessageBox.Retry)
             return
-
         for b in lst:
             r = b.get_row
             c = b.get_col
@@ -105,7 +93,8 @@ class GUI(QWidget):
             elif event.button() == QtCore.Qt.RightButton:
                 print(obj.objectName(), "Right click")
                 r, c = self.__whichButton(obj)
-                self.__setFlag(r,c)
+                if self.__visitedButtons[r][c] == 0:
+                    self.__setFlag(r, c)
             elif event.button() == QtCore.Qt.MiddleButton:
                 print(obj.objectName(), "Middle click")
         return QtCore.QObject.event(obj, event)

@@ -1,6 +1,4 @@
 from random import randint
-import texttable
-
 from constants import *
 
 
@@ -9,24 +7,30 @@ class Square:
         self.__row = row
         self.__col = col
         self.__covered = True
+
     @property
     def get_row(self):
         return self.__row
+
     @property
     def get_col(self):
         return self.__col
+
     def __eq__(self, other):
         return self.__row == other.__row and self.__col == other.__col
+
     def set_uncovered(self):
         self.__covered = False
-    def isCovered(self):
+
+    def is_covered(self):
         return self.__covered
 
 class Board:
 
     def __init__(self, rows=10, columns=10, no_bombs=25):
         '''
-        decare a matrix 10x10 initialized with 0's
+        decare a matrix 10x10
+        initialized with 0's
         '''
         self.__board = []
         self.__max_size_rows = rows
@@ -48,11 +52,6 @@ class Board:
                     return_list_empty_squares.append(Square(row, col))
         return return_list_empty_squares
 
-    def setSquare(self, row, col, value_of_square):
-        self.__board[row][col] = value_of_square
-
-    def getValueOfSquare(self, row, col):
-        return self.__board[row][col]
 
     def fillBoardWithBombs(self):
         # we fill the board with random numbers
