@@ -8,7 +8,9 @@ n = 15
 m = 20
 b = 30
 
+
 class Game:
+
     def __init__(self):
         self.__mainBoard = Board(n, m, b)
         self.__visited = [[0 for i in range(m)] for j in range(n)]

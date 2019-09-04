@@ -6,14 +6,14 @@ from constants import *
 
 class GUI(QWidget):
     def __init__(self, service):
-        QWidget.__init__(self)
+        # QWidget.__init__(self)
+        super(GUI, self).__init__()
         self.__len_rows = service.getNuberOfRows()
         self.__len_cols = service.getNumberOfCols()
         self.__matrixButtons = [[0 for i in range(self.__len_cols)] for j in range(self.__len_rows)]
         self.__visitedButtons = [[0 for i in range(self.__len_cols)] for j in range(self.__len_rows)]
         self.__service = service
         self.__setUp()
-        self.show()
 
     def __setButtonCovered(self, button):
         button.setStyleSheet(BUTTON_COLOR_COVERED)
