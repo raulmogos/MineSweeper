@@ -1,24 +1,23 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 
-from gameService import *
-from gui import *
+from gameService import Game
+from gui import GUI
 
 from first import StartApp
 
-
 if __name__ == '__main__':
-    # app = QApplication(sys.argv)
-    #
-    # service = Game()
-    # gui = GUI(service)
-    #
-    # sys.exit(app.exec_())
+  # app = QApplication(sys.argv)
 
-    app = QApplication(sys.argv)
+  #
+  # service = Game()
+  # gui = GUI(service)
+  #
+  # sys.exit(app.exec_())
 
-    start = StartApp()
-    start.show()
+  app = QApplication(sys.argv)
 
-    sys.exit(app.exec_())
+  start = StartApp()
+  start.show()
 
+  sys.exit(app.exec_())

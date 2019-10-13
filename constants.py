@@ -1,5 +1,8 @@
 # MODULE FOR CONSTANTS
 
+from bunch import bunchify as toJSObject
+
+
 
 BOMB = -1
 
@@ -20,21 +23,69 @@ BUTTON_SIZE = 40
 
 WINDOW_NAME = 'minesweeper'
 
+USERS_FILE_NAME = 'users.json'
+CONFIG_FILE_NAME = 'config.json'
+
 BUTTON_COLOR_COVERED = 'background-color: grey'
 BUTTON_COLOR_UNCOVERED = 'background-color: #cccccc'
 
 FLAG = '-2'
 
+INTERVALS = toJSObject({
+  'height': {
+    'min': 10,
+    'max': 24
+  },
+  'width': {
+    'min': 10,
+    'max': 35
+  },
+  'bombs': {
+    'min': 50,
+    'max': 130
+  }
+})
+
 ICONS = {
-    BOMB: 'icons/bomb-2.jpg',
-    FLAG: 'icons/flag.jpg',
-    0: '',
-    1: 'icons/one-4.png',
-    2: 'icons/two-4.png',
-    3: 'icons/three.jpg',
-    4: 'icons/four.png',
-    5: 'icons/five.png',
-    6: 'icons/six.png',
-    7: 'icons/seven.jpg',
-    8: 'icons/eight.png',
+  BOMB: 'icons/bomb-2.jpg',
+  FLAG: 'icons/flag.jpg',
+  0: '',
+  1: 'icons/one-4.png',
+  2: 'icons/two-4.png',
+  3: 'icons/three.jpg',
+  4: 'icons/four.png',
+  5: 'icons/five.png',
+  6: 'icons/six.png',
+  7: 'icons/seven.jpg',
+  8: 'icons/eight.png',
 }
+
+first_style = '''   
+  QWidget{
+    background-color: #506477;
+  }
+  QLabel{
+    color: white;
+    font-size: 30px;
+  }
+  QPushButton{
+    background-color: #423D26;
+    color: white;
+    border-radius: 15px;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 3px;
+  }
+'''
+players_score_style = '''
+  QWidget{
+    background-color: #506477;
+  }
+  QLabel{
+    color: white;
+    font-size: 18px;
+  }
+  QTableWidget{
+    background-color: white;
+  }
+'''
