@@ -29,7 +29,7 @@ CONFIG_FILE_NAME = 'config.json'
 BUTTON_COLOR_COVERED = 'background-color: grey'
 BUTTON_COLOR_UNCOVERED = 'background-color: #cccccc'
 
-FLAG = '-2'
+FLAG = '-15'
 
 INTERVALS = toJSObject({
   'height': {

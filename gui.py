@@ -18,17 +18,27 @@ class GUI(QWidget):
     self.__service = service
     self.__setUp()
 
+  def __setButtonCoveredByIndex(self, row, col):
+    self.__setButtonCovered(self.__matrixButtons[row][col])
+
   def __setButtonCovered(self, button):
     button.setStyleSheet(BUTTON_COLOR_COVERED)
+    button.setIcon(QIcon())
+    button.setEnabled(True)
 
   def __setFlag(self, row, col):
-    button = self.__matrixButtons[row][col]
-    button.setEnabled(False)
-    icon = QIcon()
-    icon.addPixmap(QPixmap(ICONS[FLAG]), QIcon.Disabled)
-    icon.addPixmap(QPixmap(ICONS[FLAG]), QIcon.Active)
-    button.setIcon(icon)
-    button.setStyleSheet(BUTTON_COLOR_COVERED)
+    if not self.__service.isFlag(row, col):
+      self.__service.setFlag(row, col)
+      button = self.__matrixButtons[row][col]
+      button.setEnabled(False)
+      icon = QIcon()
+      icon.addPixmap(QPixmap(ICONS[FLAG]), QIcon.Disabled)
+      icon.addPixmap(QPixmap(ICONS[FLAG]), QIcon.Active)
+      button.setIcon(icon)
+      button.setStyleSheet(BUTTON_COLOR_COVERED)
+    else:
+      self.__service.unsetFlag(row, col)
+      self.__setButtonCoveredByIndex(row, col)    
 
   def __setButtonUncovered(self, button):
     row, col = self.__whichButton(button)
@@ -76,10 +86,10 @@ class GUI(QWidget):
     sender = self.sender()
     print(sender.objectName())
     row, col = self.__whichButton(sender)
-    print('value: ', self.__service.getMainBoard()[row][col])
+    # print('value: ', self.__service.getMainBoard()[row][col])
     lst = self.__service.bfsOnBoard(row, col)
     if lst == BOMB:
-      print('bomb')
+      # print('bomb')
       self.__setButtonUncovered(sender)
       QMessageBox.information(self, 'you have lost', 'you have lost', QMessageBox.Close | QMessageBox.Retry)
       return
@@ -95,6 +105,14 @@ class GUI(QWidget):
         r, c = self.__whichButton(obj)
         if self.__visitedButtons[r][c] == 0:
           self.__setFlag(r, c)
+        else:
+          # check if [r][c] is number first
+          l = self.__service.getNeighboursNotFlaged(r, c)
+          for t in l:
+            print(t.get_row, t.get_col)
+      elif event.button() == QtCore.Qt.LeftButton:
+        print(obj.objectName(), "Left click")
       elif event.button() == QtCore.Qt.MiddleButton:
-        print(obj.objectName(), "Middle click")
+        # print(obj.objectName(), "Middle click")
+        pass
     return QtCore.QObject.event(obj, event)
