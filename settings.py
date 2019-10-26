@@ -29,11 +29,15 @@ class Settings:
     return deepcopy(self.__table)
   
   def add_player(self, name):
+    if name in self.__players:
+      return
     self.__players[name] = 0
+    self.__write_to_file()
 
   def set_player_score(self, name, score):
     self.__players[name] = score
-    
+    self.__write_to_file()
+
   def set_height(self, value):
     self.__table.height = value
     self.__write_to_file()

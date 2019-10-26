@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import (
   QWidget, QVBoxLayout, QPushButton, QLabel, QSlider,
-  QTableWidget, QTableWidgetItem, QAbstractItemView, QHBoxLayout
+  QTableWidget, QTableWidgetItem, QAbstractItemView, QHBoxLayout, QLineEdit
 )
 from PyQt5.QtCore import Qt, QSize
 from gameService import Game
 from gui import GUI
 from settings import Settings
-from constants import first_style, players_score_style, INTERVALS
+from constants import first_style, players_score_style, INTERVALS, add_player_style
 
 class StartApp(QWidget):
 
@@ -135,6 +135,33 @@ class StartApp(QWidget):
     layout.addWidget(bombs_label)
     layout.addWidget(bombs)
     self.__window.setLayout(layout)
+    self.__window.show()
+
+  def __add_new_player(self):
+    settings = Settings()
+    
+    self.__window = QWidget()
+    self.__window.setFixedSize(400,400)
+    self.__window.setStyleSheet(add_player_style)
+    vertical = QVBoxLayout()
+    self.__window.setLayout(vertical)
+    
+    user_name_label = QLabel('user name:')
+    user_name_label.setAlignment(Qt.AlignCenter)
+    vertical.addWidget(user_name_label) 
+    
+    user_name_input = QLineEdit()
+    user_name_input.setAlignment(Qt.AlignCenter)
+    vertical.addWidget(user_name_input)
+    
+    play_button = QPushButton('play')
+    play_button.clicked.connect(lambda: {
+      settings.add_player(user_name_input.text()),
+      self.__start_game(),
+      self.__window.close()
+    })
+    vertical.addWidget(play_button)
+    
     self.__window.show()
 
   def __start_game(self):

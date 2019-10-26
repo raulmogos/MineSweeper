@@ -41,7 +41,7 @@ INTERVALS = toJSObject({
     'max': 35
   },
   'bombs': {
-    'min': 50,
+    'min': 20,
     'max': 130
   }
 })
@@ -77,6 +77,35 @@ first_style = '''
     margin: 3px;
   }
 '''
+
+add_player_style = '''
+  QLabel{
+    color: white;
+    font-size: 30px;
+  }
+  QWidget{
+    background-color: #506477;
+  }
+  QPushButton{
+    background-color: #423D26;
+    color: white;
+    border-radius: 15px;
+    border: 2px solid black;
+    font-size: 23px;
+    padding: 15px;
+    margin: 3px;
+  }
+  QLineEdit{
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    margin-bottom: 80px;
+    font-size: 23px;
+    padding: 10px;
+  }
+'''
+
 players_score_style = '''
   QWidget{
     background-color: #506477;

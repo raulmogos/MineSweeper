@@ -45,10 +45,10 @@ class Game:
         ret_lst.append(now) 
     return ret_lst
   
-  def getNeighboursNotFlaged(self, row, col):
+  def getNeighboursNotFlagedNotVisited(self, row, col):
     neighbours = self.__mainBoard.getListOfNeighbours(row, col)
-    l = filter(lambda square: self.__visited[square.get_row][square.get_col],
-               neighbours)
+    l = filter(lambda square: not self.__flags[square.get_row][square.get_col]
+              and not self.__visited[square.get_row][square.get_col], neighbours)
     return deepcopy(l)
   
   def setFlag(self, row, col):

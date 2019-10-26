@@ -51,6 +51,10 @@ class GUI(QWidget):
     button.setIcon(icon)
     button.setStyleSheet(BUTTON_COLOR_UNCOVERED)
 
+  def __uncoverListOfButtons(self, list_squares):
+    for sq in list_squares:
+      self.__setButtonUncoveredByIndex(sq.get_row, sq.get_col)
+
   def __setButtonUncoveredByIndex(self, row, col):
     self.__setButtonUncovered(self.__matrixButtons[row][col])
 
@@ -107,9 +111,8 @@ class GUI(QWidget):
           self.__setFlag(r, c)
         else:
           # check if [r][c] is number first
-          l = self.__service.getNeighboursNotFlaged(r, c)
-          for t in l:
-            print(t.get_row, t.get_col)
+          l = self.__service.getNeighboursNotFlagedNotVisited(r, c)
+          self.__uncoverListOfButtons(l)
       elif event.button() == QtCore.Qt.LeftButton:
         print(obj.objectName(), "Left click")
       elif event.button() == QtCore.Qt.MiddleButton:
