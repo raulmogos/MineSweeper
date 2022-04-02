@@ -2,8 +2,6 @@
 
 from bunch import bunchify as toJSObject
 
-
-
 BOMB = -1
 
 ZERO = 0
@@ -32,32 +30,32 @@ BUTTON_COLOR_UNCOVERED = 'background-color: #cccccc'
 FLAG = '-15'
 
 INTERVALS = toJSObject({
-  'height': {
-    'min': 10,
-    'max': 24
-  },
-  'width': {
-    'min': 10,
-    'max': 35
-  },
-  'bombs': {
-    'min': 20,
-    'max': 130
-  }
+    'height': {
+        'min': 10,
+        'max': 24
+    },
+    'width': {
+        'min': 10,
+        'max': 35
+    },
+    'bombs': {
+        'min': 20,
+        'max': 130
+    }
 })
 
 ICONS = {
-  BOMB: 'icons/bomb-2.jpg',
-  FLAG: 'icons/flag.jpg',
-  0: '',
-  1: 'icons/one-4.png',
-  2: 'icons/two-4.png',
-  3: 'icons/three.jpg',
-  4: 'icons/four.png',
-  5: 'icons/five.png',
-  6: 'icons/six.png',
-  7: 'icons/seven.jpg',
-  8: 'icons/eight.png',
+    BOMB: 'icons/bomb-2.jpg',
+    FLAG: 'icons/flag.jpg',
+    0: '',
+    1: 'icons/one-4.png',
+    2: 'icons/two-4.png',
+    3: 'icons/three.jpg',
+    4: 'icons/four.png',
+    5: 'icons/five.png',
+    6: 'icons/six.png',
+    7: 'icons/seven.jpg',
+    8: 'icons/eight.png',
 }
 
 first_style = '''   
